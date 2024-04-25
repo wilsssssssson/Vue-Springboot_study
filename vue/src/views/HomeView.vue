@@ -1,8 +1,11 @@
 <template>
   <div style="height: 100%">
     <el-container style="height: 100%;">
-  <el-aside width="200px" style="background-color: rgb(238, 241, 246);height: 100%;">
-    <el-menu :default-openeds="['1', '3']" style="height: 100%;">
+  <el-aside :width="collapse_window+'px'" style="background-color: rgb(238, 241, 246);min-height: 100%;">
+    <el-menu :default-openeds="['1', '3']" style="min-height: 100%;overflow-x: hidden;" 
+    :collapse-transition="false"
+    :collapse="isCollapse"
+    >
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>导航一</template>
         <el-menu-item-group>
@@ -53,6 +56,9 @@
   
   <el-container>
     <el-header>
+      <div style="flex : 1;">
+        <span :class="collapseButton" style="cursor:pointer" @click="collapse"></span>
+      </div>
       <el-dropdown>
         <i class="el-icon-setting" style="margin-right: 15px"></i>
         <el-dropdown-menu slot="dropdown">
@@ -83,6 +89,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import { Collapse } from 'element-ui';
 
 export default {
   name: 'HomeView',
@@ -93,8 +100,22 @@ export default {
         address: '上海市普陀区金沙江路 1518 弄'
       };
       return{
-        tableData: Array(10).fill(item)
+        tableData: Array(10).fill(item),
+        collapseButton: 'el-icon-s-fold',
+        isCollapse:false,
+        collapse_window:200
       };
+  },
+  methods:{
+    collapse(){
+      this.isCollapse=!this.isCollapse;
+      if(this.isCollapse){
+        this.collapse_window=64
+      }else{
+        this.collapse_window=200
+      }
+     
+    }
   }
 }
 </script>
@@ -106,4 +127,5 @@ export default {
   border-bottom: 1px solid #eee;
   line-height: 60px;
 }
+
 </style>
