@@ -1,13 +1,13 @@
 <template>
   <div style="height: 100%">
     <el-container style="height: 100%;">
-  <el-aside :width="collapse_window+'px'" style="background-color: rgb(238, 241, 246);min-height: 100%;">
+  <el-aside :width="collapse_window+'px'" style="background-color: rgb(238, 241, 246);min-height: 100vh;">
     <el-menu :default-openeds="['1', '3']" style="min-height: 100%;overflow-x: hidden;" 
     :collapse-transition="false"
     :collapse="isCollapse"
     >
       <el-submenu index="1">
-        <template slot="title"><i class="el-icon-message"></i>导航一</template>
+        <template slot="title"><i class="el-icon-message"></i><span slot="title">导航一</span></template>
         <el-menu-item-group>
           <template slot="title">分组一</template>
           <el-menu-item index="1-1">选项1</el-menu-item>
@@ -22,7 +22,7 @@
         </el-submenu>
       </el-submenu>
       <el-submenu index="2">
-        <template slot="title"><i class="el-icon-menu"></i>导航二</template>
+        <template slot="title"><i class="el-icon-menu"></i><span slot="title">导航二</span></template>
         <el-menu-item-group>
           <template slot="title">分组一</template>
           <el-menu-item index="2-1">选项1</el-menu-item>
@@ -37,7 +37,7 @@
         </el-submenu>
       </el-submenu>
       <el-submenu index="3">
-        <template slot="title"><i class="el-icon-setting"></i>导航三</template>
+        <template slot="title"><i class="el-icon-setting"></i><span slot="title">导航三</span></template>
         <el-menu-item-group>
           <template slot="title">分组一</template>
           <el-menu-item index="3-1">选项1</el-menu-item>
@@ -56,8 +56,11 @@
   
   <el-container>
     <el-header>
-      <div style="flex : 1;">
-        <span :class="collapseButton" style="cursor:pointer" @click="collapse"></span>
+      <div v-show="isvisible" style="position:relative;float: left;text-align: center;" >
+        <span :class="collapseButtonin" style="cursor:pointer" @click="collapse"></span>
+      </div>
+      <div v-show="!isvisible" style="position:relative;float: left;text-align: center;">
+        <span :class="collapseButtonout" style="cursor:pointer" @click="collapse"></span>
       </div>
       <el-dropdown>
         <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -101,14 +104,17 @@ export default {
       };
       return{
         tableData: Array(10).fill(item),
-        collapseButton: 'el-icon-s-fold',
+        collapseButtonin: 'el-icon-s-fold',
+        collapseButtonout: 'el-icon-s-unfold',
         isCollapse:false,
-        collapse_window:200
+        collapse_window:200,
+        isvisible:true
       };
   },
   methods:{
     collapse(){
       this.isCollapse=!this.isCollapse;
+      this.isvisible=!this.isvisible;
       if(this.isCollapse){
         this.collapse_window=64
       }else{
