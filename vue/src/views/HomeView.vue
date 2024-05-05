@@ -6,6 +6,9 @@
     :collapse-transition="false"
     :collapse="isCollapse"
     >
+      <div style="height: 60px;line-height:60px;text-align : center;border-top: 20px;">
+        <img src=".././assets/book.png" style="position: relative;top:4px; left: -2px; height: 20px;">
+        <b v-show="isvisible">后台管理系统</b></div>
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i><span slot="title">导航一</span></template>
         <el-menu-item-group>
@@ -74,14 +77,42 @@
     </el-header>
     
     <el-main style="height: 100%">
-      <el-table :data="tableData">
+      <div style="padding:10px">
+        <el-input style="width: 200px;height: 15px;" placeholder="点击输入"  suffix-icon="el-icon-search">
+        </el-input><el-button style="margin-left: 5px;" type="primary">搜索</el-button>
+      </div>
+
+      <div style="margin: 10px 0; ">
+      <el-button type="primary" :size="buttonSize">新增<i class="el-icon-folder-add"></i></el-button>
+      <el-button type="danger" :size="buttonSize">删除<i class="el-icon-folder-delete"></i></el-button>
+      <el-button type="primary" :size="buttonSize">导入<i class="el-icon-bottom"></i></el-button>
+      <el-button type="primary" :size="buttonSize">导出<i class="el-icon-top"></i></el-button>
+      </div>
+      <el-table :data="tableData" border>
         <el-table-column prop="date" label="日期" width="140">
         </el-table-column>
         <el-table-column prop="name" label="姓名" width="120">
         </el-table-column>
         <el-table-column prop="address" label="地址">
         </el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <el-button type="primary" :size="buttonSize">编辑<i class="el-icon-edit"></i></el-button>
+            <el-button type="danger" :size="buttonSize">删除<i class="el-icon-circle-close"></i></el-button>
+          </template>
+        </el-table-column>
       </el-table>
+      <div style="padding:10px">
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage4"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
+        </el-pagination>
+      </div>
     </el-main>
   </el-container>
 </el-container>
@@ -108,7 +139,8 @@ export default {
         collapseButtonout: 'el-icon-s-unfold',
         isCollapse:false,
         collapse_window:200,
-        isvisible:true
+        isvisible:true,
+        buttonSize:'mini'
       };
   },
   methods:{
@@ -133,5 +165,4 @@ export default {
   border-bottom: 1px solid #eee;
   line-height: 60px;
 }
-
 </style>
