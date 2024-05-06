@@ -9,3 +9,5 @@ spring:
     password: abc.123456
   application:
     name: study_spring
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
