@@ -2,6 +2,7 @@ import {createRouter,createWebHistory} from 'vue-router'
 // 引入一个一个可能要呈现组件
 import AboutView from '@/views/AboutView.vue'
 import WatchView from '@/views/WatchView.vue'
+import DomRefView from '@/views/DomRefView.vue'
 
 // 第二步：创建路由器
 const router = createRouter({
@@ -14,6 +15,10 @@ const router = createRouter({
     {
       path:'/about',
       component:AboutView
+    },
+    {
+      path:'/domref',
+      component:DomRefView
     },
   ]
 })
